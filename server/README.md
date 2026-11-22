@@ -2,7 +2,8 @@
 
 Express 5 · Mongoose 9 · MongoDB Atlas · Node 18+
 
-The API half of LeadsWood. The React client lives in [`../client`](../client).
+The API half of LeadsWood. The React client lives in [`../client`](../client); the project overview,
+screens and run instructions are in the [root README](../README.md).
 
 **Status: complete and tested** — 11 endpoints, 28 API tests passing.
 
@@ -189,6 +190,8 @@ trust proxy → cors → json body (100kb) → api limiter
 → notFound → errorHandler
 ```
 
+- **CORS only allows `CLIENT_ORIGIN`** (comma-separated for several origins). In development the
+  Vite proxy makes requests same-origin, so this only matters once the client is hosted separately.
 - Behind Render/Railway the proxy sends the real client IP in `X-Forwarded-For`, which is why
   `trust proxy` is set — without it the limiter would throttle all users as one.
 - `errorHandler` is last and takes four arguments; Express only recognises an error handler that way.
