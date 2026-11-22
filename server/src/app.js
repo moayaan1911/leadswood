@@ -15,7 +15,7 @@ export const app = express();
 app.set("trust proxy", 1);
 
 // load global middlewares
-app.use(cors());
+app.use(cors({ origin: env.clientOrigins }));
 app.use(express.json({ limit: "100kb" }));
 app.use("/api", apiLimiter);
 

@@ -1,0 +1,23 @@
+{
+  "name": "LeadsWood — Lead Management",
+  "short_name": "LeadsWood",
+  "description": "A small lead manager: capture leads, track them from New to Qualified, search and filter the list, and see a count per status.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf6ef",
+  "theme_color": "#faf6ef",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

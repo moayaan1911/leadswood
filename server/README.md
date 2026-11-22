@@ -50,7 +50,6 @@ src/
   controllers/
     auth.controller.js        signup, login, me, updateUser
     lead.controller.js        list, stats, get, create, update, delete
-    user.controller.js        list, get, update, delete  (not mounted, see §11)
   middleware/
     auth.middleware.js        requireAuth — verifies the bearer token
     error.middleware.js       the only place an error response is rendered
@@ -62,7 +61,6 @@ src/
   routes/
     auth.routes.js            4 auth routes
     lead.routes.js            6 lead routes
-    user.routes.js            user CRUD (not mounted, see §11)
 tests/
   helpers.js                  memory database, test user + token
   app.test.js                 3 tests
@@ -77,6 +75,7 @@ tests/
 | `MONGO_URI` | **yes** | — | Atlas connection string |
 | `JWT_SECRET` | **yes** | — | Signs and verifies tokens (32+ characters) |
 | `PORT` | no | `3000` | Port to listen on (Render/Railway set this themselves) |
+| `CLIENT_ORIGIN` | no | `http://localhost:5173` | Allowed CORS origins, comma separated |
 
 The server refuses to start with a readable message if `MONGO_URI` or `JWT_SECRET` is missing.
 
@@ -281,11 +280,8 @@ would need a shared store (Redis) to enforce one quota across instances.
 
 ## 13. Known gaps
 
-- `src/controllers/user.controller.js` and `src/routes/user.routes.js` exist but are **not mounted** —
-  user CRUD is not part of the brief and the client never calls it. They should be removed before submission.
 - The rate limiter has no automated test (an in-memory store plus hundreds of requests would make the
   suite slow and flaky); its behaviour was verified manually.
-- `cors()` currently allows every origin. Before deploying, it should be restricted to the frontend URL.
 
 ## 14. Assumptions and what I would improve
 

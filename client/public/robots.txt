@@ -1,0 +1,26 @@
+# robots.txt for LeadsWood
+
+User-Agent: *
+Allow: /
+
+# Search engines
+User-Agent: Googlebot
+User-Agent: Googlebot-Image
+User-Agent: Bingbot
+User-Agent: DuckDuckBot
+User-Agent: Applebot
+Allow: /
+
+# Answer engines and generative crawlers are welcome on the public pages
+User-Agent: Google-Extended
+User-Agent: OAI-SearchBot
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+User-Agent: PerplexityBot
+User-Agent: Perplexity-User
+User-Agent: ClaudeBot
+User-Agent: Claude-SearchBot
+User-Agent: Claude-User
+Allow: /
+
+Sitemap: https://leadswood.vercel.app/sitemap.xml

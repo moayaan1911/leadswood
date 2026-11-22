@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import { login, signup } from '../api/auth.js'
 import { saveSession } from '../api/session.js'
 
@@ -86,6 +87,8 @@ function Field({
 }
 
 function Login() {
+  usePageTitle('Log in — LeadsWood')
+
   const navigate = useNavigate()
   const [mode, setMode] = useState('login')
   const [values, setValues] = useState(EMPTY_VALUES)
@@ -161,7 +164,7 @@ function Login() {
       {/* Left: photo, travelling scan line, and the way back */}
       <div className="relative min-h-[34vh] overflow-hidden md:min-h-screen">
         <img
-          src="https://picsum.photos/seed/leads-desk/1400/1800"
+          src="/leads-banner.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />

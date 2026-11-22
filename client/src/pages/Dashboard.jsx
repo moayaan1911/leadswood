@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import { createLead, deleteLead, fetchLeads, fetchStats, updateLead } from '../api/leads.js'
 import { clearSession, readSession, saveSession } from '../api/session.js'
 import StatusCounts from '../components/StatusCounts.jsx'
@@ -29,6 +30,8 @@ const arrow = (direction) => (
 )
 
 export default function Dashboard() {
+  usePageTitle('Dashboard — LeadsWood')
+
   const navigate = useNavigate()
   const [session, setSession] = useState(() => readSession())
 

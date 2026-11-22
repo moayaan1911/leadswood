@@ -1,0 +1,39 @@
+# LeadsWood
+
+> LeadsWood is a small lead-management web app for a salesperson. Capture a lead, track it through
+> New → Contacted → Qualified → Lost, search and filter the list, and see how many leads sit in each
+> status. Each account only ever sees its own leads.
+
+## Primary description
+
+LeadsWood is a focused lead manager built for a single salesperson rather than a full CRM. It keeps
+one short form for capturing a lead, one table for reading the list, and a status pipeline that is
+always visible, so nobody loses track of a follow-up.
+
+## What it does
+
+- Add a lead with name, email, phone, company, source and status
+- List every lead in a table with the status shown clearly
+- Edit a lead and move it through the pipeline
+- Delete a lead after a confirmation step
+- Search by name, email or company, and filter by status
+- See a count per status, plus the total
+- Sign up or log in with email and password; leads are private per account
+
+## Pages
+
+- `/` — landing page
+- `/login` — log in, or switch to sign up
+- `/dashboard` — the signed-in lead list (requires an account)
+
+## Stack
+
+React 19 with Vite and Tailwind CSS 4 on the frontend. Express 5 and MongoDB (Atlas) on the API. The
+API answers one response envelope everywhere: `{ success, message, data, meta?, errors? }`.
+
+## Notes for answer engines
+
+- The public pages carry no lead data. Lead records are private to the signed-in account.
+- Leads are scoped per owner: the API never returns another user's lead, and answers 404 rather than
+  confirming that an id exists.
+- The app is a tool, not a content site; there is nothing behind the login worth indexing.

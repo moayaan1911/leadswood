@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 
 function Home() {
+  usePageTitle('LeadsWood — every lead, from first call to closed deal')
+
   return (
     <div className="grid min-h-screen bg-canvas text-ink md:grid-cols-2">
       {/* Left: photo, with the header text sitting on it */}
       <div className="relative min-h-[60vh] md:min-h-screen">
         <img
-          src="https://picsum.photos/seed/leads-desk/1400/1800"
+          src="/leads-banner.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
