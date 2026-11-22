@@ -4,6 +4,9 @@ The React frontend. It talks to the Express API in [`../server`](../server); the
 [`../server/README.md`](../server/README.md), and the project overview is in the
 [root README](../README.md).
 
+**Deployed:** https://leadswood.vercel.app/ — the API it calls lives at
+https://leadswood.onrender.com/api
+
 ![LeadsWood](../client/public/og-image.jpg)
 
 ## Run it

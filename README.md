@@ -5,7 +5,11 @@ keystroke. Built for the **Meru Technosoft — Full Stack Developer** screening 
 
 ![LeadsWood](client/public/og-image.jpg)
 
-**Live demo:** _pending deployment_ · **API contract:** [server/README.md](server/README.md)
+**Live demo:** https://leadswood.vercel.app/ · **API:** https://leadswood.onrender.com ·
+**API contract:** [server/README.md](server/README.md)
+
+> The API runs on Render's free tier, so it sleeps when idle and the first request can take ~30
+> seconds. The client is on Vercel and loads immediately.
 
 ---
 

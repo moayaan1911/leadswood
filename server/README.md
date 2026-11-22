@@ -6,6 +6,8 @@ The API half of LeadsWood. The React client lives in [`../client`](../client); t
 screens and run instructions are in the [root README](../README.md).
 
 **Status: complete and tested** — 11 endpoints, 28 API tests passing.
+**Deployed:** https://leadswood.onrender.com (Render free tier — the first request after it sleeps
+can take ~30 seconds)
 
 ---
 
