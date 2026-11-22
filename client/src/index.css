@@ -98,6 +98,69 @@
       transform: translateX(3px);
     }
   }
+
+  /* Dashboard: slide-over form, row entrance, saved-row flash, toast, skeleton */
+  --animate-panel-in: panel-in 240ms ease-out both;
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateX(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  --animate-fade-up: fade-up 260ms ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* A row that was just added or edited draws the eye for a moment */
+  --animate-flash: flash 1200ms ease-out 1;
+
+  @keyframes flash {
+    0% {
+      background-color: #efe4d1;
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+
+  --animate-toast-in: toast-in 220ms ease-out both;
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --animate-shimmer: shimmer 1.4s linear infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
 }
 
 body {

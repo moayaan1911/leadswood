@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { login, signup } from '../api/auth.js'
+import { saveSession } from '../api/session.js'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const EMPTY_VALUES = { name: '', email: '', password: '' }
@@ -84,6 +86,7 @@ function Field({
 }
 
 function Login() {
+  const navigate = useNavigate()
   const [mode, setMode] = useState('login')
   const [values, setValues] = useState(EMPTY_VALUES)
   const [errors, setErrors] = useState({})
@@ -134,15 +137,23 @@ function Login() {
 
     setStatus('submitting')
     setNotice('')
-    // No auth API yet: this is the interface pass, so the submit path is
-    // simulated. It gets swapped for the real call in the auth step.
-    await new Promise((resolve) => setTimeout(resolve, 900))
-    setStatus('idle')
-    setNotice(
-      isSignup
-        ? 'Signup is not connected to the API yet.'
-        : 'Login is not connected to the API yet.',
-    )
+
+    try {
+      // Auth is served by the in-memory mock for now; the Express API with
+      // bcrypt and JWT replaces it behind this same call.
+      const result = isSignup
+        ? await signup({ name: values.name, email: values.email, password: values.password })
+        : await login({ email: values.email, password: values.password })
+
+      saveSession({ token: result.data.token, user: result.data.user })
+      navigate('/dashboard', { replace: true })
+    } catch (error) {
+      setNotice(error.message)
+      if (error.errors?.length) {
+        setErrors(Object.fromEntries(error.errors.map((item) => [item.field, item.message])))
+      }
+      setStatus('idle')
+    }
   }
 
   return (
