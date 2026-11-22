@@ -1,13 +1,5 @@
-// The one place the frontend talks to the network.
-//
-// Every response in this app uses the same envelope:
-//   success:  { success: true, message, data, meta? }
-//   failure:  { success: false, message, code, data: null, errors? }
-// so unwrapping happens here once, and no screen has to know the shape.
-
-// Flip to false once the Express API is live: every endpoint in api/leads.js
-// and api/auth.js then goes over HTTP instead of the in-memory mock.
-export const USE_MOCK_API = true
+// The one place the frontend talks to the network, so unwrapping the shared
+// envelope happens here once and no screen has to know the shape.
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? '/api'
 
@@ -40,7 +32,15 @@ export async function request(path, { method = 'GET', body, token } = {}) {
 
   const payload = await response.json().catch(() => null)
 
-  if (!payload?.success) {
+  // a proxy or gateway error answers with html, not with our envelope
+  if (!payload) {
+    throw new ApiError('Could not reach the server.', {
+      status: response.status,
+      code: 'NETWORK_ERROR',
+    })
+  }
+
+  if (!payload.success) {
     throw new ApiError(payload?.message ?? 'Something went wrong.', {
       status: response.status,
       code: payload?.code ?? '',

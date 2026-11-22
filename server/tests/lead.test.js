@@ -5,7 +5,7 @@ beforeAll(startDb);
 afterAll(stopDb);
 afterEach(clearDb);
 
-const lead = { name: "Asha Rao", email: "asha.rao@northwind.example", phone: "+91 98200 41122", company: "Northwind", source: "Referral", status: "Qualified" };
+const lead = { name: "Asha Rao", email: "asha.rao@northwind.example", phone: "9820041122", company: "Northwind", source: "Referral", status: "Qualified" };
 
 const create = (token, body = lead) =>
   request(app).post("/api/leads").set("Authorization", `Bearer ${token}`).send(body);

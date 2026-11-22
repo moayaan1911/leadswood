@@ -3,7 +3,7 @@ import 'dotenv/config'
 // All environment variables are read here.
 export const env = {
   isTest: process.env.NODE_ENV === "test",
-  port: Number(process.env.PORT) || 5000,
+  port: Number(process.env.PORT) || 3000,
   mongoUri: process.env.MONGO_URI,
   jwtSecret: process.env.JWT_SECRET,
 }

@@ -70,6 +70,13 @@ export default function Dashboard() {
       setMeta(list.meta)
       setStats(counts.data)
     } catch (error) {
+      // an expired or stale token means the session is gone
+      if (error.status === 401) {
+        clearSession()
+        navigate('/login', { replace: true })
+        return
+      }
+
       setLeads([])
       setMeta(null)
       setLoadError(error.message)

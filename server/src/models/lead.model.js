@@ -17,7 +17,7 @@ const leadSchema = new mongoose.Schema(
       maxlength: 254,
       match: [EMAIL_RE, "Enter a valid email address"],
     },
-    phone: { type: String, trim: true, maxlength: 30 },
+    phone: { type: String, trim: true, maxlength: 10 },
     company: { type: String, trim: true, maxlength: 120 },
     source: { type: String, enum: SOURCES, default: "Other" },
     status: { type: String, enum: STATUSES, default: "New" },

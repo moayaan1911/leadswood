@@ -1,7 +1,7 @@
 import { Lead, SOURCES, STATUSES } from "../models/lead.model.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^[+\d][\d\s().-]{5,29}$/;
+const PHONE_RE = /^\d{10}$/;
 const FIELDS = ["name", "email", "phone", "company", "source", "status"];
 const SORTABLE = ["name", "email", "company", "status", "createdAt", "updatedAt"];
 
@@ -27,7 +27,7 @@ function validateLead(values) {
     errors.push({ field: "email", message: "Enter a valid email address" });
   }
   if (values.phone?.trim() && !PHONE_RE.test(values.phone.trim())) {
-    errors.push({ field: "phone", message: "Use digits, spaces and + ( ) . - only" });
+    errors.push({ field: "phone", message: "Phone must be 10 digits" });
   }
   if (values.source !== undefined && !SOURCES.includes(values.source)) {
     errors.push({ field: "source", message: "Unknown source" });

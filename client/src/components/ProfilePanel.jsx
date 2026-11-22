@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { changePassword, updateName } from '../api/auth.js'
+import { updateUser } from '../api/auth.js'
 import { usePanelKeys } from '../hooks/usePanelKeys.js'
 
 const inputClass =
@@ -116,28 +116,15 @@ export default function ProfilePanel({ user, onClose, onSaved }) {
     setSaving(true)
 
     try {
-      let updatedUser = null
-      const nameChanged = name.trim() !== (user?.name ?? '')
-
-      if (nameChanged) {
-        const result = await updateName({ name })
-        updatedUser = result.data.user
-      }
-
+      const payload = { name: name.trim() }
       if (wantsPassword) {
-        await changePassword({
-          currentPassword: passwords.currentPassword,
-          newPassword: passwords.newPassword,
-        })
+        payload.currentPassword = passwords.currentPassword
+        payload.newPassword = passwords.newPassword
       }
 
-      const message = wantsPassword && updatedUser
-        ? 'Profile updated'
-        : updatedUser
-          ? 'Name updated'
-          : 'Password updated'
+      const result = await updateUser(payload)
 
-      onSaved({ user: updatedUser ?? undefined, message })
+      onSaved({ user: result.data.user, message: result.message })
       resetDraft()
       setEditing(false)
     } catch (error) {

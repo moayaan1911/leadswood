@@ -14,7 +14,7 @@ The API half of LeadsWood. The React client lives in [`../client`](../client).
 cd server
 npm install
 cp .env.example .env      # then fill MONGO_URI and JWT_SECRET
-npm run dev               # nodemon → http://localhost:5000
+npm run dev               # nodemon → http://localhost:3000
 ```
 
 Create the database user once in MongoDB Atlas, allow your IP under **Network access**, and copy the
@@ -27,8 +27,9 @@ From the repository root:
 | Command | What it does |
 | --- | --- |
 | `npm run dev:server` | Starts the API with nodemon |
+| `npm run dev:client` | Starts the React client |
+| `npm run dev` | Starts both together, with a coloured prefix per app |
 | `npm test` | Runs the 28 API tests |
-| `npm run dev` | Starts the React client |
 
 From `server/`:
 
@@ -75,7 +76,7 @@ tests/
 | --- | --- | --- | --- |
 | `MONGO_URI` | **yes** | — | Atlas connection string |
 | `JWT_SECRET` | **yes** | — | Signs and verifies tokens (32+ characters) |
-| `PORT` | no | `5000` | Port to listen on (Render/Railway set this themselves) |
+| `PORT` | no | `3000` | Port to listen on (Render/Railway set this themselves) |
 
 The server refuses to start with a readable message if `MONGO_URI` or `JWT_SECRET` is missing.
 
@@ -159,7 +160,7 @@ Index: `{ email: 1 }` unique. Documents serialise as `{ id, name, email, created
 | --- | --- | --- |
 | `name` | String | required, trimmed, ≤100 |
 | `email` | String | required, lowercase, valid email, ≤254 |
-| `phone` | String | optional, ≤30, digits/space/`+`/`(`/`)`/`.`/`-` |
+| `phone` | String | optional, exactly 10 digits |
 | `company` | String | optional, ≤120 |
 | `source` | String | `Website · Referral · Cold Call · Email Campaign · Social Media · Event · Other` (default `Other`) |
 | `status` | String | `New · Contacted · Qualified · Lost` (default `New`) |
@@ -177,7 +178,7 @@ Indexes:
 
 - **User:** name required; email required and valid; password 8–72 characters with at least one letter
   and one number. 72 is bcrypt's byte limit, so longer passwords are rejected rather than silently truncated.
-- **Lead:** name and email required, email valid; phone validated only when provided; `source` and
+- **Lead:** name and email required, email valid; phone must be exactly 10 digits when provided; `source` and
   `status` must be one of the listed values.
 - Validation failures answer `400` with one `errors[]` entry per field, and the client shows them inline.
 
@@ -243,28 +244,28 @@ How they run:
 | --- | --- |
 | Test account | `asha@example.com` / `password123` |
 | Second account (isolation tests) | `other@example.com` (created directly in the database) |
-| Sample lead | name `Asha Rao`, email `asha.rao@northwind.example`, phone `+91 98200 41122`, company `Northwind`, source `Referral`, status `Qualified` |
+| Sample lead | name `Asha Rao`, email `asha.rao@northwind.example`, phone `9820041122`, company `Northwind`, source `Referral`, status `Qualified` |
 
 ### Manual run (same values)
 
 ```bash
 # create the account
-curl -X POST localhost:5000/api/auth/signup \
+curl -X POST localhost:3000/api/auth/signup \
   -H 'Content-Type: application/json' \
   -d '{"name":"Asha Rao","email":"asha@example.com","password":"password123"}'
 
 # copy the token from the response, then
 TOKEN=<token>
 
-curl localhost:5000/api/auth/me -H "Authorization: Bearer $TOKEN"
+curl localhost:3000/api/auth/me -H "Authorization: Bearer $TOKEN"
 
-curl -X POST localhost:5000/api/leads -H "Authorization: Bearer $TOKEN" \
+curl -X POST localhost:3000/api/leads -H "Authorization: Bearer $TOKEN" \
   -H 'Content-Type: application/json' \
-  -d '{"name":"Vikram Menon","email":"vikram@brightlayne.example","phone":"+91 98450 21188","company":"Brightlayne","source":"Website","status":"New"}'
+  -d '{"name":"Vikram Menon","email":"vikram@brightlayne.example","phone":"9845021188","company":"Brightlayne","source":"Website","status":"New"}'
 
-curl "localhost:5000/api/leads?search=vikram&sort=name&order=asc" -H "Authorization: Bearer $TOKEN"
-curl localhost:5000/api/leads/stats -H "Authorization: Bearer $TOKEN"
-curl localhost:5000/api/nope
+curl "localhost:3000/api/leads?search=vikram&sort=name&order=asc" -H "Authorization: Bearer $TOKEN"
+curl localhost:3000/api/leads/stats -H "Authorization: Bearer $TOKEN"
+curl localhost:3000/api/nope
 ```
 
 ## 12. Rate limiting

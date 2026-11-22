@@ -9,8 +9,8 @@ function validate(values) {
   if (!values.name.trim()) errors.name = 'Name is required'
   if (!values.email.trim()) errors.email = 'Email is required'
   else if (!EMAIL_RE.test(values.email.trim())) errors.email = 'Enter a valid email address'
-  if (values.phone.trim() && !/^[+\d][\d\s().-]{5,29}$/.test(values.phone.trim())) {
-    errors.phone = 'Use digits, spaces and + ( ) . - only'
+  if (values.phone.trim() && !/^\d{10}$/.test(values.phone.trim())) {
+    errors.phone = 'Phone must be 10 digits'
   }
   return errors
 }
@@ -163,6 +163,9 @@ export default function LeadFormPanel({
                 value={values.phone}
                 onChange={update('phone')}
                 autoComplete="tel"
+                inputMode="numeric"
+                maxLength={10}
+                placeholder="10 digits"
                 aria-invalid={Boolean(errors.phone)}
                 className={inputClass}
               />
