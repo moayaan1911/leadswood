@@ -2,7 +2,7 @@
   "name": "leads-management-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Express + Mongoose API for the Leads Management System",
+  "description": "Express + Mongoose API for LeadsWood",
   "type": "module",
   "main": "src/app.js",
   "scripts": {

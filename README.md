@@ -1,7 +1,7 @@
 # LeadsWood
 
 A small, complete lead manager: capture a lead, move it through a pipeline, and find it again in a
-keystroke. Built for the **Meru Technosoft — Full Stack Developer** screening assignment.
+keystroke. A mini project built end to end — API, database, tests and a live demo.
 
 ![LeadsWood](client/public/og-image.jpg)
 
@@ -15,7 +15,7 @@ keystroke. Built for the **Meru Technosoft — Full Stack Developer** screening 
 
 ## 1. What it does
 
-| Required in the brief | Where it lives |
+| Requirement | Where it lives |
 | --- | --- |
 | Add a lead: name, email, phone, company, source dropdown, status | `POST /api/leads` + the add-lead slide-over |
 | List all leads in a table with the status shown clearly | `GET /api/leads` + the dashboard table, each row carrying a labelled status dot |
@@ -24,7 +24,7 @@ keystroke. Built for the **Meru Technosoft — Full Stack Developer** screening 
 | Search / filter by name or status | `GET /api/leads?search=&status=`; the counts strip doubles as the status filter |
 | Validation on the frontend **and** the backend | The same email rule and the same 10-digit phone rule run on both sides |
 
-**Bonus features that are also in:**
+**Also included:**
 
 - **Authentication** — bcrypt-hashed passwords and JWT access tokens, so each account only ever sees
   its own leads
@@ -37,12 +37,12 @@ keystroke. Built for the **Meru Technosoft — Full Stack Developer** screening 
 
 | Layer | Choice | Why |
 | --- | --- | --- |
-| Frontend | **React 19 + Vite** | The brief's preferred stack. Vite keeps the dev loop instant, and the app is small enough that no meta-framework is needed. |
+| Frontend | **React 19 + Vite** | A stack I am productive in. Vite keeps the dev loop instant, and the app is small enough that no meta-framework is needed. |
 | Styling | **Tailwind CSS 4** | One stylesheet of design tokens plus utility classes; no runtime CSS-in-JS and no `tailwind.config.js` in v4. |
 | Backend | **Express 5** | The team's stack. Express 5 forwards async errors to the error middleware automatically, so no `asyncHandler` wrapper is needed anywhere. |
-| Database | **MongoDB Atlas + Mongoose** | The brief lists it, and the free tier means no local database to install. Lead documents are owner-scoped with compound indexes. |
+| Database | **MongoDB Atlas + Mongoose** | The free tier means no local database to install, and documents map cleanly onto leads. Lead documents are owner-scoped with compound indexes. |
 | Auth | **bcrypt + jsonwebtoken** | Passwords are **hashed**, never encrypted — hashing is one-way, so a database leak does not expose them. Tokens carry only the user id. |
-| Tests | **vitest + supertest + mongodb-memory-server** | Tests run against a real MongoDB engine, never the real database, and need no setup on the reviewer's machine. |
+| Tests | **vitest + supertest + mongodb-memory-server** | Tests run against a real MongoDB engine, never the real database, and need no local database or setup. |
 
 **Design language:** a warm beige and brown palette (ink `#3B2A20` on canvas `#FAF6EF`, ~11:1
 contrast), Orbitron for display type and Share Tech Mono for everything else, hairlines instead of
@@ -87,7 +87,7 @@ Other commands, from the repository root:
 ## 4. Project structure
 
 ```
-leads_management_assignment/
+leadswood/
 ├── client/                     React app (see client/README.md)
 │   ├── public/                 icons, banner, og-image, robots.txt, sitemap.xml, llms.txt
 │   └── src/
@@ -133,7 +133,7 @@ The full contract — validation rules, indexes, error codes, rate limits — is
 ## 6. Database design in one paragraph
 
 `User` holds a name, a unique lowercased email and a bcrypt hash that is never loaded by default.
-`Lead` holds the six fields from the brief plus an `owner` reference that is always taken from the
+`Lead` holds the six lead fields plus an `owner` reference that is always taken from the
 token — never from the request body. Indexes follow the queries: `{owner, status, createdAt}` for the
 default list, `{owner, name}` for sorting, and a unique `{owner, email}` so one user cannot store the
 same contact twice while two users still can.
@@ -152,7 +152,7 @@ same contact twice while two users still can.
   call, before a company name is known. Phone is optional, and exactly 10 digits when given.
 - **Lead emails are unique per owner, not globally.** Two salespeople may track the same contact.
 - **Search also covers email and company** beyond the required name search.
-- **Delete is a hard delete** — no soft-delete or audit trail, because the brief does not ask for one.
+- **Delete is a hard delete** — no soft-delete or audit trail, which a tool this size does not need.
 
 ## 9. What I would improve with more time
 

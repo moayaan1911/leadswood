@@ -1,8 +1,8 @@
 {
-  "name": "leads-management-assignment",
+  "name": "leadswood",
   "version": "1.0.0",
   "private": true,
-  "description": "Leads Management System - MERN take-home assignment (client + server)",
+  "description": "LeadsWood \u2014 lead manager: React client and Express API",
   "scripts": {
     "dev": "concurrently -n server,client -c blue,magenta \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "npm run dev --prefix client",

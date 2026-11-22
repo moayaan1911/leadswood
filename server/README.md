@@ -1,4 +1,4 @@
-# Leads Management — Server (API)
+# LeadsWood — Server (API)
 
 Express 5 · Mongoose 9 · MongoDB Atlas · Node 18+
 
@@ -295,7 +295,7 @@ would need a shared store (Redis) to enforce one quota across instances.
 - **Lead emails are unique per owner, not globally.** Two users may track the same contact.
 - **Search also covers `email` and `company`** beyond the required name search. It uses an escaped regex,
   which is fine at this scale but does not use an index.
-- **Delete is a hard delete.** No soft delete or audit trail — the brief does not ask for one.
+- **Delete is a hard delete.** No soft delete or audit trail; a tool this size does not need the history.
 - With more time: a text index (or Atlas Search) for search; refresh tokens plus a revocation list;
   a Redis-backed rate-limit store; `helmet` security headers; and per-account lockout after repeated
   failed logins.
